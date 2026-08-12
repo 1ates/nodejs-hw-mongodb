@@ -21,7 +21,7 @@ const contactSchema = new Schema(
       type: String,
       required: true,
       enum: ['work', 'home', 'personal'],
-      default: 'personal',
+      // default: 'personal',  // hw3 için bu alanın required olması gerekiyor fakat default değer atadığımızda validation hatası vermeden kayıt işlemi başarılı oluyor. Bu yüzden comment out edilmiştir.
     },
   },
   {
