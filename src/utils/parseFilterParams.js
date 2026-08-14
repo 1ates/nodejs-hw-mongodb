@@ -11,7 +11,7 @@ const parseFavourite = (favourite) => {
   if (!isString) return;
 
   const isFavourite = (favourite) => ['true', 'false'].includes(favourite);
-  if (isFavourite(favourite)) return favourite;
+  if (isFavourite(favourite)) return favourite === 'true';
 };
 
 export const parseFilterParams = (query) => {
