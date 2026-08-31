@@ -2,11 +2,11 @@ tags:
   - Contacts
 summary: Update a contact
 operationId: patchContact
-description: Update a contact belonging to the authenticated user. The photo may be uploaded as a multipart form-data file.
+description: Update a contact belonging to the authenticated user. Only the fields that should be changed need to be provided. The photo can be uploaded as a multipart form-data file.
 security:
   - bearerAuth: []
 parameters:
-  - name: id
+  - name: contactId
     in: path
     required: true
     description: The unique ID of the contact to update.
@@ -18,11 +18,35 @@ requestBody:
   content:
     multipart/form-data:
       schema:
-        $ref: '../../../components/schemas/contact.yaml'
+        type: object
+        properties:
+          name:
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: John Doe
+          phoneNumber:
+            type: string
+            example: '+905551112233'
+          email:
+            type: string
+            format: email
+            minLength: 1
+            example: john.doe@example.com
+          isFavourite:
+            type: boolean
+            example: false
+          contactType:
+            type: string
+            enum: [work, home, personal]
+            example: work
+          photo:
+            type: string
+            format: binary
 responses:
   '200':
-    description: Contact updated successfully
+    description: Contact updated successfully.
   '400':
-    description: Bad request
+    description: Bad request.
   '404':
-    description: Contact not found
+    description: Contact not found.

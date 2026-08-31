@@ -2,11 +2,11 @@ tags:
   - Contacts
 summary: Create or update a contact
 operationId: upsertContact
-description: Create a new contact or update an existing contact for the authenticated user. The photo may be uploaded as a multipart form-data file.
+description: Create a new contact or update an existing contact for the authenticated user. The photo can be uploaded as a multipart form-data file.
 security:
   - bearerAuth: []
 parameters:
-  - name: id
+  - name: contactId
     in: path
     required: true
     description: The unique ID of the contact to create or update.
@@ -18,38 +18,7 @@ requestBody:
   content:
     multipart/form-data:
       schema:
-        type: object
-        required:
-          - name
-          - phoneNumber
-          - contactType
-        properties:
-          name:
-            type: string
-            minLength: 3
-            maxLength: 20
-            example: John Doe
-          phoneNumber:
-            type: string
-            pattern: '^\+?[0-9]{7,15}$'
-            example: '+905551112233'
-          email:
-            type: string
-            format: email
-            example: john.doe@example.com
-          isFavourite:
-            type: boolean
-            example: false
-          contactType:
-            type: string
-            enum:
-              - work
-              - home
-              - personal
-            example: work
-          photo:
-            type: string
-            format: binary
+        $ref: '../../../components/schemas/contact.yaml#/ContactMultipartRequest'
 responses:
   '200':
     description: Existing contact updated successfully.

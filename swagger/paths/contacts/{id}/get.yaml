@@ -7,7 +7,7 @@ security:
   - bearerAuth: []
 parameters:
   - in: path
-    name: id
+    name: contactId
     required: true
     description: The unique ID of the contact to retrieve.
     schema:
