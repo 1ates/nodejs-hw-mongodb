@@ -14,7 +14,7 @@ tags:
 servers:
   - url: http://localhost:3000
     description: Local server
-  - url: https://nodejs-hw-mongodb.onrender.com
+  - url: https://connect-app-nodejs-hw7-swagger.onrender.com
     description: Production server
 security:
   - bearerAuth: []
@@ -42,7 +42,7 @@ paths:
       $ref: '../swagger/paths/contacts/get.yaml'
     post:
       $ref: '../swagger/paths/contacts/post.yaml'
-  /contacts/{id}:
+  /contacts/{contactId}:
     get:
       $ref: '../swagger/paths/contacts/{id}/get.yaml'
     patch:

@@ -1,42 +1,107 @@
-type: object
-properties:
-  _id:
-    type: string
-    example: 65f1a2b3c4d5e6f789012345
-  name:
-    type: string
-    minLength: 3
-    maxLength: 20
-    example: John Doe
-  phoneNumber:
-    type: string
-    example: '+905551112233'
-  email:
-    type: string
-    format: email
-    example: john.doe@example.com
-  isFavourite:
-    type: boolean
-    default: false
-    example: true
-  contactType:
-    type: string
-    enum: [work, home, personal]
-    example: work
-  userId:
-    type: string
-    example: 65f1a2b3c4d5e6f789012300
-  photo:
-    type: string
-    format: uri
-    example: https://res.cloudinary.com/example/image/upload/contact.jpg
-  createdAt:
-    type: string
-    format: date-time
-  updatedAt:
-    type: string
-    format: date-time
-required:
-  - name
-  - phoneNumber
-  - contactType
+Contact:
+  type: object
+  properties:
+    _id:
+      type: string
+      readOnly: true
+      example: 65f1a2b3c4d5e6f789012345
+    name:
+      type: string
+      minLength: 3
+      maxLength: 20
+      example: John Doe
+    phoneNumber:
+      type: string
+      example: '+905551112233'
+    email:
+      type: string
+      format: email
+      minLength: 1
+      example: john.doe@example.com
+    isFavourite:
+      type: boolean
+      example: false
+    contactType:
+      type: string
+      enum: [work, home, personal]
+      example: work
+    userId:
+      type: string
+      readOnly: true
+      example: 65f1a2b3c4d5e6f789012300
+    photo:
+      type: string
+      format: uri
+      readOnly: true
+      example: https://res.cloudinary.com/example/image/upload/contact.jpg
+    createdAt:
+      type: string
+      format: date-time
+      readOnly: true
+    updatedAt:
+      type: string
+      format: date-time
+      readOnly: true
+  required:
+    - name
+    - phoneNumber
+    - contactType
+
+ContactRequest:
+  type: object
+  required:
+    - name
+    - phoneNumber
+    - contactType
+  properties:
+    name:
+      type: string
+      minLength: 3
+      maxLength: 20
+      example: John Doe
+    phoneNumber:
+      type: string
+      example: '+905551112233'
+    email:
+      type: string
+      format: email
+      minLength: 1
+      example: john.doe@example.com
+    isFavourite:
+      type: boolean
+      example: false
+    contactType:
+      type: string
+      enum: [work, home, personal]
+      example: work
+
+ContactMultipartRequest:
+  type: object
+  required:
+    - name
+    - phoneNumber
+    - contactType
+  properties:
+    name:
+      type: string
+      minLength: 3
+      maxLength: 20
+      example: John Doe
+    phoneNumber:
+      type: string
+      example: '+905551112233'
+    email:
+      type: string
+      format: email
+      minLength: 1
+      example: john.doe@example.com
+    isFavourite:
+      type: boolean
+      example: false
+    contactType:
+      type: string
+      enum: [work, home, personal]
+      example: work
+    photo:
+      type: string
+      format: binary

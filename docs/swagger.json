@@ -15,7 +15,7 @@
       "description": "Local server"
     },
     {
-      "url": "https://nodejs-hw-mongodb.onrender.com",
+      "url": "https://connect-app-nodejs-hw7-swagger.onrender.com",
       "description": "Production server"
     }
   ],
@@ -279,7 +279,7 @@
         ],
         "summary": "Create a contact",
         "operationId": "createContact",
-        "description": "Create a new contact for the authenticated user. The photo may be uploaded as a multipart form-data file.",
+        "description": "Create a new contact for the authenticated user. The photo can be uploaded as a multipart form-data file.",
         "security": [
           {
             "bearerAuth": []
@@ -290,22 +290,22 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/contact"
+                "$ref": "#/components/schemas/ContactMultipartRequest"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Contact created"
+            "description": "Contact created successfully."
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           }
         }
       }
     },
-    "/contacts/{id}": {
+    "/contacts/{contactId}": {
       "get": {
         "tags": [
           "Contacts"
@@ -321,7 +321,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "contactId",
             "required": true,
             "description": "The unique ID of the contact to retrieve.",
             "schema": {
@@ -345,7 +345,7 @@
         ],
         "summary": "Update a contact",
         "operationId": "patchContact",
-        "description": "Update a contact belonging to the authenticated user. The photo may be uploaded as a multipart form-data file.",
+        "description": "Update a contact belonging to the authenticated user. Only the fields that should be changed need to be provided. The photo can be uploaded as a multipart form-data file.",
         "security": [
           {
             "bearerAuth": []
@@ -353,7 +353,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "contactId",
             "in": "path",
             "required": true,
             "description": "The unique ID of the contact to update.",
@@ -368,20 +368,55 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/contact"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 20,
+                    "example": "John Doe"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "example": "+905551112233"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "minLength": 1,
+                    "example": "john.doe@example.com"
+                  },
+                  "isFavourite": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "contactType": {
+                    "type": "string",
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ],
+                    "example": "work"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Contact updated successfully"
+            "description": "Contact updated successfully."
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           },
           "404": {
-            "description": "Contact not found"
+            "description": "Contact not found."
           }
         }
       },
@@ -399,7 +434,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "contactId",
             "in": "path",
             "required": true,
             "description": "The unique ID of the contact to delete.",
@@ -424,7 +459,7 @@
         ],
         "summary": "Create or update a contact",
         "operationId": "upsertContact",
-        "description": "Create a new contact or update an existing contact for the authenticated user. The photo may be uploaded as a multipart form-data file.",
+        "description": "Create a new contact or update an existing contact for the authenticated user. The photo can be uploaded as a multipart form-data file.",
         "security": [
           {
             "bearerAuth": []
@@ -432,7 +467,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "contactId",
             "in": "path",
             "required": true,
             "description": "The unique ID of the contact to create or update.",
@@ -447,47 +482,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "name",
-                  "phoneNumber",
-                  "contactType"
-                ],
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "minLength": 3,
-                    "maxLength": 20,
-                    "example": "John Doe"
-                  },
-                  "phoneNumber": {
-                    "type": "string",
-                    "pattern": "^\\+?[0-9]{7,15}$",
-                    "example": "+905551112233"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "john.doe@example.com"
-                  },
-                  "isFavourite": {
-                    "type": "boolean",
-                    "example": false
-                  },
-                  "contactType": {
-                    "type": "string",
-                    "enum": [
-                      "work",
-                      "home",
-                      "personal"
-                    ],
-                    "example": "work"
-                  },
-                  "photo": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
+                "$ref": "#/components/schemas/ContactMultipartRequest"
               }
             }
           }
@@ -594,13 +589,14 @@
           }
         }
       },
-      "contact": {
+      "ContactMultipartRequest": {
         "type": "object",
+        "required": [
+          "name",
+          "phoneNumber",
+          "contactType"
+        ],
         "properties": {
-          "_id": {
-            "type": "string",
-            "example": "65f1a2b3c4d5e6f789012345"
-          },
           "name": {
             "type": "string",
             "minLength": 3,
@@ -614,12 +610,12 @@
           "email": {
             "type": "string",
             "format": "email",
+            "minLength": 1,
             "example": "john.doe@example.com"
           },
           "isFavourite": {
             "type": "boolean",
-            "default": false,
-            "example": true
+            "example": false
           },
           "contactType": {
             "type": "string",
@@ -630,29 +626,11 @@
             ],
             "example": "work"
           },
-          "userId": {
-            "type": "string",
-            "example": "65f1a2b3c4d5e6f789012300"
-          },
           "photo": {
             "type": "string",
-            "format": "uri",
-            "example": "https://res.cloudinary.com/example/image/upload/contact.jpg"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "format": "binary"
           }
-        },
-        "required": [
-          "name",
-          "phoneNumber",
-          "contactType"
-        ]
+        }
       }
     },
     "responses": {

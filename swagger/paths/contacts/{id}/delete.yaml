@@ -6,7 +6,7 @@ description: Delete a contact belonging to the authenticated user by its ID.
 security:
   - bearerAuth: []
 parameters:
-  - name: id
+  - name: contactId
     in: path
     required: true
     description: The unique ID of the contact to delete.
