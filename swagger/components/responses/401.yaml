@@ -1,0 +1,15 @@
+description: Authentication failed or the provided credentials are invalid.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: Unauthorized
+      required:
+        - status
+        - message

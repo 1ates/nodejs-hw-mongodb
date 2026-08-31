@@ -1,0 +1,8 @@
+tags:
+  - Auth
+summary: Log out a user
+operationId: logoutUser
+description: Log out the current user and clear the refresh token and session cookies.
+responses:
+  '204':
+    description: Successfully logged out.

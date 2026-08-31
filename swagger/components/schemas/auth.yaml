@@ -1,0 +1,86 @@
+RegisterRequest:
+  type: object
+  required:
+    - name
+    - email
+    - password
+  properties:
+    name:
+      type: string
+      minLength: 3
+      maxLength: 30
+      example: John Doe
+    email:
+      type: string
+      format: email
+      example: john.doe@example.com
+    password:
+      type: string
+      format: password
+      example: Password123!
+
+LoginRequest:
+  type: object
+  required:
+    - email
+    - password
+  properties:
+    email:
+      type: string
+      format: email
+      example: john.doe@example.com
+    password:
+      type: string
+      format: password
+      example: Password123!
+
+SendResetEmailRequest:
+  type: object
+  required:
+    - email
+  properties:
+    email:
+      type: string
+      format: email
+      example: john.doe@example.com
+
+ResetPasswordRequest:
+  type: object
+  required:
+    - password
+    - token
+  properties:
+    password:
+      type: string
+      format: password
+      example: NewPassword123!
+    token:
+      type: string
+      example: reset-token-from-email
+
+User:
+  type: object
+  properties:
+    _id:
+      type: string
+      example: 65f1a2b3c4d5e6f789012345
+    name:
+      type: string
+      example: John Doe
+    email:
+      type: string
+      format: email
+      example: john.doe@example.com
+    createdAt:
+      type: string
+      format: date-time
+    updatedAt:
+      type: string
+      format: date-time
+
+SessionResponse:
+  type: object
+  properties:
+    accessToken:
+      type: string
+      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...

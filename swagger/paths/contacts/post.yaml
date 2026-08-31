@@ -1,0 +1,18 @@
+tags:
+  - Contacts
+summary: Create a contact
+operationId: createContact
+description: Create a new contact for the authenticated user. The photo may be uploaded as a multipart form-data file.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        $ref: '../../components/schemas/contact.yaml'
+responses:
+  '201':
+    description: Contact created
+  '400':
+    description: Bad request

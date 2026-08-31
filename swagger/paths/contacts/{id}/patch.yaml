@@ -1,0 +1,28 @@
+tags:
+  - Contacts
+summary: Update a contact
+operationId: patchContact
+description: Update a contact belonging to the authenticated user. The photo may be uploaded as a multipart form-data file.
+security:
+  - bearerAuth: []
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The unique ID of the contact to update.
+    schema:
+      type: string
+      example: 65f1a2b3c4d5e6f789012345
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        $ref: '../../../components/schemas/contact.yaml'
+responses:
+  '200':
+    description: Contact updated successfully
+  '400':
+    description: Bad request
+  '404':
+    description: Contact not found
