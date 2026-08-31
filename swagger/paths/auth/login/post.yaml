@@ -1,0 +1,16 @@
+tags:
+  - Auth
+summary: Log in a user
+operationId: loginUser
+description: Authenticate a user with email and password and create a new session.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../../components/schemas/auth.yaml#/LoginRequest'
+responses:
+  '200':
+    description: Successfully logged in.
+  '400':
+    description: Bad request.

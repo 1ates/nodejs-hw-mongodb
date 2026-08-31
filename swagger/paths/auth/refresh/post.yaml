@@ -1,0 +1,10 @@
+tags:
+  - Auth
+summary: Refresh user session
+operationId: refreshUserSession
+description: Refresh the user's session using the refresh token and session ID stored in cookies.
+responses:
+  '200':
+    description: Successfully refreshed the session.
+  '401':
+    $ref: '../../../components/responses/401.yaml'
